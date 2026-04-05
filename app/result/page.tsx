@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -39,7 +39,7 @@ function ScoreBar({
   );
 }
 
-export default function ResultPage() {
+function ResultContent() {
   const params = useSearchParams();
   const img = params.get("img");
 
@@ -55,7 +55,10 @@ export default function ResultPage() {
   const [loading, setLoading] = useState(true);
   const [loadingText, setLoadingText] = useState(t.loadingSteps[0]);
 
-  const loadingMessages = useMemo(() => t.loadingSteps, [t.loadingSteps]);
+  const loadingMessages = useMemo<string[]>(
+    () => [...t.loadingSteps],
+    [t.loadingSteps]
+  );
 
   useEffect(() => {
     if (!loading) return;
@@ -105,7 +108,7 @@ export default function ResultPage() {
     }
 
     analyzeImage();
-  }, [img, t]);
+  }, [img, lang, t]);
 
   async function handleCopyLink() {
     try {
@@ -245,28 +248,34 @@ export default function ResultPage() {
             </button>
 
             <Link
-  href="/analyze"
-  className="group relative rounded-2xl px-5 py-4 text-center font-semibold text-white transition duration-300 hover:scale-[1.04]"
-  style={{
-    background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
-    boxShadow: "0 0 25px rgba(255, 100, 150, 0.35)",
-  }}
->
-  <span className="relative z-10 flex items-center justify-center gap-2">
-    🔁 {t.retry}
-  </span>
-
-  {/* glow layer */}
-  <span
-    className="absolute inset-0 rounded-2xl opacity-0 blur-xl transition group-hover:opacity-100"
-    style={{
-      background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
-    }}
-  />
-</Link>
+              href="/analyze"
+              className="rounded-2xl px-5 py-4 text-center font-semibold text-white transition duration-300 hover:scale-[1.04]"
+              style={{
+                background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
+                boxShadow: "0 0 25px rgba(255, 100, 150, 0.35)",
+              }}
+            >
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                🔁 {t.retry}
+              </span>
+            </Link>
           </div>
         </div>
       </section>
     </main>
+  );
+}
+
+export default function ResultPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="min-h-screen bg-black text-white flex items-center justify-center">
+          Se încarcă...
+        </main>
+      }
+    >
+      <ResultContent />
+    </Suspense>
   );
 }
