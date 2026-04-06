@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ro">
-      <body>{children}</body>
+      <body><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2496696479529580"
+     crossorigin="anonymous"></script>{children}
+     </body>
     </html>
   );
 }
