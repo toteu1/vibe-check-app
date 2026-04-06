@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Viral Vibe Scanner",
@@ -20,7 +21,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         ></script>
       </head>
-      <body>{children}</body>
+      <body className="bg-black text-white">
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
