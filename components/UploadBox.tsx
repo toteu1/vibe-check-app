@@ -70,12 +70,22 @@ export default function UploadBox() {
       )}
 
       <button
-        onClick={handleAnalyze}
-        disabled={loading}
-        className="mt-6 w-full rounded-2xl bg-white py-4 font-semibold text-black transition hover:scale-[1.01] disabled:opacity-50"
-      >
-        {loading ? t.uploadLoading : t.uploadBtn}
-      </button>
+  className="w-full rounded-2xl px-6 py-4 font-semibold text-white transition duration-300 hover:scale-[1.05]"
+  style={{
+    background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
+    boxShadow: "0 0 25px rgba(255, 100, 150, 0.4)",
+  }}
+  onMouseEnter={(e) =>
+    (e.currentTarget.style.boxShadow =
+      "0 0 40px rgba(255, 100, 150, 0.7)")
+  }
+  onMouseLeave={(e) =>
+    (e.currentTarget.style.boxShadow =
+      "0 0 25px rgba(255, 100, 150, 0.4)")
+  }
+>
+  Upload photo 🔥
+</button>
     </div>
   );
 }
