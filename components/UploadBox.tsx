@@ -17,7 +17,13 @@ export default function UploadBox() {
 
   async function handleAnalyze() {
     if (!file) {
-      alert("Selectează mai întâi o poză.");
+      alert(
+        lang === "ro"
+          ? "Selectează mai întâi o poză."
+          : lang === "de"
+          ? "Wähle zuerst ein Foto aus."
+          : "Select a photo first."
+      );
       return;
     }
 
@@ -37,11 +43,24 @@ export default function UploadBox() {
       if (data.success && data.url) {
         window.location.href = `/result?img=${encodeURIComponent(data.url)}`;
       } else {
-        alert(data.error || "Eroare upload");
+        alert(
+          data.error ||
+            (lang === "ro"
+              ? "Eroare la upload."
+              : lang === "de"
+              ? "Fehler beim Upload."
+              : "Upload error.")
+        );
       }
     } catch (error) {
       console.error("UPLOAD ERROR:", error);
-      alert("A apărut o eroare la upload.");
+      alert(
+        lang === "ro"
+          ? "A apărut o eroare la upload."
+          : lang === "de"
+          ? "Beim Upload ist ein Fehler aufgetreten."
+          : "An upload error occurred."
+      );
     } finally {
       setLoading(false);
     }
@@ -70,22 +89,23 @@ export default function UploadBox() {
       )}
 
       <button
-  className="w-full rounded-2xl px-6 py-4 font-semibold text-white transition duration-300 hover:scale-[1.05]"
-  style={{
-    background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
-    boxShadow: "0 0 25px rgba(255, 100, 150, 0.4)",
-  }}
-  onMouseEnter={(e) =>
-    (e.currentTarget.style.boxShadow =
-      "0 0 40px rgba(255, 100, 150, 0.7)")
-  }
-  onMouseLeave={(e) =>
-    (e.currentTarget.style.boxShadow =
-      "0 0 25px rgba(255, 100, 150, 0.4)")
-  }
->
-  Upload photo 🔥
-</button>
+        type="button"
+        onClick={handleAnalyze}
+        disabled={loading}
+        className="mt-6 w-full rounded-2xl px-6 py-4 font-semibold text-white transition duration-300 hover:scale-[1.05] disabled:cursor-not-allowed disabled:opacity-60"
+        style={{
+          background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
+          boxShadow: "0 0 25px rgba(255, 100, 150, 0.4)",
+        }}
+      >
+        {loading
+          ? t.uploadLoading
+          : lang === "ro"
+          ? "Analizează poza 🔥"
+          : lang === "de"
+          ? "Foto analysieren 🔥"
+          : "Analyze photo 🔥"}
+      </button>
     </div>
   );
 }
