@@ -55,6 +55,15 @@ export default function HomePage() {
         <div className="mt-8 rounded-2xl border border-orange-500/20 bg-orange-500/10 px-4 py-3 text-sm text-orange-200">
           {t.homeNote}
         </div>
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-4 text-sm text-white/50">
+  <Link href="/privacy" className="transition hover:text-white">
+    Privacy Policy
+  </Link>
+  <span>•</span>
+  <Link href="/terms" className="transition hover:text-white">
+    Terms & Conditions
+  </Link>
+</div>
       </section>
     </main>
   );
