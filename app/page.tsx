@@ -33,11 +33,16 @@ export default function HomePage() {
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Link
-            href="/analyze"
-            className="rounded-2xl bg-white px-6 py-4 text-base font-semibold text-black transition hover:scale-[1.02]"
-          >
-            {t.homeCta}
-          </Link>
+  href="/analyze"
+  className="rounded-2xl px-6 py-4 text-base font-semibold transition duration-300 hover:scale-[1.05]"
+  style={{
+    background: "linear-gradient(135deg, #ff4d8d, #ff7a18)",
+    color: "#ffffff",
+    boxShadow: "0 0 25px rgba(255, 100, 150, 0.4)",
+  }}
+>
+  {t.homeCta} 🔥
+</Link>
 
           <a
             href="#cum-functioneaza"
